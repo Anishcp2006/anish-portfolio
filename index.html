@@ -642,34 +642,46 @@
 
         <div class="contact-grid">
 
-          <!-- Contact Form with Validation -->
+          <!-- Contact Form with EmailJS Integration -->
           <div class="contact-form-wrap">
             <form class="contact-form" id="contactForm" novalidate>
+
+              <!-- Honeypot spam trap: hidden off-screen, ignored by real visitors -->
+              <div class="hp-field" aria-hidden="true">
+                <label for="website_hp">Leave this field empty</label>
+                <input type="text" id="website_hp" name="website_hp" tabindex="-1" autocomplete="off" />
+              </div>
+
               <div class="form-group">
                 <label for="cName" class="form-label">Full Name *</label>
-                <input type="text" id="cName" class="form-input" placeholder="e.g. Alex Morgan" required autocomplete="name" />
+                <input type="text" id="cName" name="from_name" class="form-input" placeholder="e.g. Alex Morgan" required autocomplete="name" aria-required="true" aria-describedby="cNameError" aria-invalid="false" />
+                <p class="form-field-error" id="cNameError"></p>
               </div>
 
               <div class="form-group">
                 <label for="cEmail" class="form-label">Email Address *</label>
-                <input type="email" id="cEmail" class="form-input" placeholder="e.g. alex@company.com" required autocomplete="email" />
+                <input type="email" id="cEmail" name="from_email" class="form-input" placeholder="e.g. alex@company.com" required autocomplete="email" aria-required="true" aria-describedby="cEmailError" aria-invalid="false" />
+                <p class="form-field-error" id="cEmailError"></p>
               </div>
 
               <div class="form-group">
                 <label for="cSubject" class="form-label">Subject *</label>
-                <input type="text" id="cSubject" class="form-input" placeholder="e.g. Internship Opportunity / Technical Collaboration" required />
+                <input type="text" id="cSubject" name="subject" class="form-input" placeholder="e.g. Internship Opportunity / Technical Collaboration" required aria-required="true" aria-describedby="cSubjectError" aria-invalid="false" />
+                <p class="form-field-error" id="cSubjectError"></p>
               </div>
 
               <div class="form-group">
-                <label for="cMessage" class="form-label">Message (Minimum 15 characters) *</label>
-                <textarea id="cMessage" class="form-textarea" placeholder="Describe the opportunity, technical inquiry, or message..." required minlength="15"></textarea>
+                <label for="cMessage" class="form-label">Message (Minimum 10 characters) *</label>
+                <textarea id="cMessage" name="message" class="form-textarea" placeholder="Describe the opportunity, technical inquiry, or message..." required aria-required="true" aria-describedby="cMessageError" aria-invalid="false" minlength="10"></textarea>
+                <p class="form-field-error" id="cMessageError"></p>
               </div>
 
-              <div id="formStatusMsg" class="form-status-msg" role="alert"></div>
+              <div id="formStatusMsg" class="form-status-msg" role="status" aria-live="polite"></div>
 
               <button type="submit" class="btn btn-primary" id="contactSubmitBtn">
-                <span id="contactBtnText">Send Transmission</span>
-                <i class="fa-solid fa-paper-plane"></i>
+                <span class="btn-spinner" id="contactSpinner" aria-hidden="true"></span>
+                <span id="contactBtnText">Send Message</span>
+                <i class="fa-solid fa-paper-plane" id="contactBtnIcon" aria-hidden="true"></i>
               </button>
             </form>
           </div>
@@ -860,6 +872,10 @@ Type 'about', 'skills', 'projects', 'certs', 'contact', 'azure', or 'clear'.</di
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"></script>
+
+  <!-- EmailJS Browser SDK (official CDN method — loads the global `emailjs` object) -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
   <script src="script.js"></script>
 </body>
 </html>
