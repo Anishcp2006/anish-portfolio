@@ -2153,6 +2153,128 @@ button {
   color: #fb7185;
 }
 
+.form-status-msg.info {
+  display: block;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: #7dd3fc;
+}
+
+.form-status-msg a {
+  color: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.form-status-msg a:hover {
+  color: #ffffff;
+}
+
+/* Inline field-level validation errors */
+.form-field-error {
+  display: none;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #fb7185;
+  margin-top: 2px;
+}
+
+.form-field-error.show {
+  display: block;
+}
+
+/* Invalid field styling (aria-invalid) */
+.form-input[aria-invalid="true"],
+.form-textarea[aria-invalid="true"] {
+  border-color: var(--accent-rose);
+  box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.15);
+}
+
+/* Honeypot spam trap: visually hidden & off-screen, ignored by humans */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Loading spinner inside the submit button */
+.btn-spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(5, 46, 22, 0.35);
+  border-top-color: #052e16;
+  border-radius: 50%;
+  animation: form-spin 0.7s linear infinite;
+}
+
+@keyframes form-spin {
+  to { transform: rotate(360deg); }
+}
+
+#contactSubmitBtn.loading .btn-spinner {
+  display: inline-block;
+}
+
+#contactSubmitBtn.loading #contactBtnIcon {
+  display: none;
+}
+
+#contactSubmitBtn.loading {
+  cursor: progress;
+}
+
+#contactSubmitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  filter: none;
+  box-shadow: none;
+}
+
+/* Light theme — keep status/error text sufficiently high-contrast */
+[data-theme="light"] .form-status-msg.success {
+  color: #047857;
+  background: rgba(5, 150, 105, 0.12);
+  border-color: rgba(5, 150, 105, 0.35);
+}
+
+[data-theme="light"] .form-status-msg.error {
+  color: #b91c1c;
+  background: rgba(225, 29, 72, 0.1);
+  border-color: rgba(225, 29, 72, 0.3);
+}
+
+[data-theme="light"] .form-status-msg.info {
+  color: #0369a1;
+  background: rgba(2, 132, 199, 0.1);
+  border-color: rgba(2, 132, 199, 0.3);
+}
+
+[data-theme="light"] .form-field-error {
+  color: #b91c1c;
+}
+
+/* Small screens: full-width inputs & easy-to-tap button */
+@media (max-width: 580px) {
+  .contact-form-wrap {
+    padding: 20px;
+  }
+
+  #contactSubmitBtn {
+    min-height: 48px;
+    font-size: 1rem;
+  }
+}
+
 .contact-info-list {
   display: flex;
   flex-direction: column;

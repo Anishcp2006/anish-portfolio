@@ -1224,65 +1224,389 @@ function initDeveloperTerminal() {
 }
 
 /* ---------------------------------------------------------
-   19. CONTACT FORM CONTROLLER
+   19. CONTACT FORM — FUNCTIONAL EMAILJS INTEGRATION
 --------------------------------------------------------- */
+
+// ========================================
+// EMAILJS CONFIGURATION
+// ========================================
+
+// 1. Go to your EmailJS account (https://www.emailjs.com).
+// 2. Create an Email Service (e.g. Gmail) and copy its Service ID.
+// 3. Create an Email Template and copy its Template ID.
+// 4. Copy your EmailJS Public Key from the dashboard.
+// 5. Paste your EmailJS details below.
+
+const emailConfig = {
+    publicKey: "PASTE_YOUR_EMAILJS_PUBLIC_KEY_HERE",
+    serviceId: "PASTE_YOUR_SERVICE_ID_HERE",
+    templateId: "PASTE_YOUR_TEMPLATE_ID_HERE"
+};
+
+// In your EmailJS template, use these variables:
+//   From:   {{from_name}}
+//   Email:  {{from_email}}
+//   Subject:{{subject}}
+//   Message:{{message}}
+//   To:     {{to_name}}            (set to the portfolio owner's name)
+//   Reply-To: {{from_email}}       (set in the template so you can reply directly)
+
+// Portfolio owner's real name & email (already present in portfolioData).
+const contactOwnerName = portfolioData.personal.name;
+const contactOwnerEmail = portfolioData.personal.email;
+
+// Spam protection: cooldown between submissions (milliseconds).
+const CONTACT_COOLDOWN_MS = 5000;
+
+// Status copy.
+const CONTACT_SUCCESS_MSG = "Message sent successfully! Thank you for reaching out. I'll get back to you soon.";
+const CONTACT_CONFIG_MSG = "The contact form is not configured yet. Please add your EmailJS Public Key, Service ID and Template ID in script.js.";
+const CONTACT_EMAILJS_MSG = "The email service is temporarily unavailable. Please try again or ";
+const CONTACT_FAILURE_MSG = "Sorry, your message could not be sent right now. Please try again or ";
+
+// Runtime state to prevent duplicate / repeated submissions.
+let contactSubmitting = false;
+let contactLastSubmit = 0;
+
+// Field metadata: field key -> { input id, inline-error id }.
+const contactFieldMeta = {
+  name:    { input: 'cName',    error: 'cNameError' },
+  email:   { input: 'cEmail',   error: 'cEmailError' },
+  subject: { input: 'cSubject', error: 'cSubjectError' },
+  message: { input: 'cMessage', error: 'cMessageError' }
+};
+
+// Initialise EmailJS safely using the Public Key.
+// Returns true only when the SDK is loaded AND a real public key exists.
+function initEmailJS() {
+  if (typeof window.emailjs === 'undefined') {
+    // SDK failed to load — form degrades gracefully via fallback message.
+    console.warn('[Contact] EmailJS SDK not loaded.');
+    return false;
+  }
+
+  const hasPublicKey = emailConfig.publicKey && emailConfig.publicKey !== 'PASTE_YOUR_EMAILJS_PUBLIC_KEY_HERE';
+  if (!hasPublicKey) {
+    console.warn('[Contact] EmailJS Public Key missing.');
+    return false;
+  }
+
+  try {
+    window.emailjs.init({ publicKey: emailConfig.publicKey });
+    return true;
+  } catch (err) {
+    // Never crash — the form degrades to the graceful fallback message.
+    console.warn('[Contact] EmailJS init failed.');
+    return false;
+  }
+}
+
+// Attach the contact form controller.
 function initContactForm() {
   const form = document.getElementById('contactForm');
+  if (!form) return;
+
+  const name = document.getElementById('cName');
+  const email = document.getElementById('cEmail');
+  const subject = document.getElementById('cSubject');
+  const message = document.getElementById('cMessage');
   const submitBtn = document.getElementById('contactSubmitBtn');
   const btnText = document.getElementById('contactBtnText');
   const statusMsg = document.getElementById('formStatusMsg');
-  if (!form || !submitBtn || !statusMsg) return;
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
+  if (!name || !email || !subject || !message || !submitBtn || !btnText || !statusMsg) return;
 
-    const name = document.getElementById('cName')?.value.trim();
-    const email = document.getElementById('cEmail')?.value.trim();
-    const subject = document.getElementById('cSubject')?.value.trim();
-    const message = document.getElementById('cMessage')?.value.trim();
+  // Initialise the EmailJS SDK (graceful if unavailable).
+  initEmailJS();
 
-    if (!name || !email || !subject || !message) {
-      showStatus("Please complete all required fields.", "error");
-      return;
-    }
+  // Submit handler.
+  form.addEventListener('submit', handleContactSubmit);
 
-    if (!isValidEmail(email)) {
-      showStatus("Please enter a valid email address.", "error");
-      return;
-    }
+  // Live validation: re-check / clear a field's error while the user types.
+  const fields = { name, email, subject, message };
+  Object.keys(fields).forEach(fieldKey => {
+    fields[fieldKey].addEventListener('input', () => {
+      const errEl = document.getElementById(contactFieldMeta[fieldKey].error);
+      if (!errEl || !errEl.textContent) return;
 
-    if (message.length < 15) {
-      showStatus("Message must contain at least 15 characters.", "error");
-      return;
-    }
+      const error = validateContactField(fieldKey, fields[fieldKey].value);
+      if (error) {
+        showFieldError(fieldKey, error);
+      } else {
+        clearFieldError(fieldKey);
+      }
+    });
+  });
+}
 
-    submitBtn.disabled = true;
-    btnText.textContent = "Transmitting...";
+// Submit handler (prevent default, validate, send via EmailJS).
+async function handleContactSubmit(e) {
+  e.preventDefault();
+  if (!contactElsExist()) return;
 
+  // Prevent duplicate submissions while a request is in flight.
+  if (contactSubmitting) return;
+
+  // Submission cooldown (spam protection).
+  const now = Date.now();
+  if (contactLastSubmit && (now - contactLastSubmit) < CONTACT_COOLDOWN_MS) {
+    showFormStatus('Please wait a moment before sending another message.', 'info');
+    return;
+  }
+
+  // Honeypot trap: if a bot filled the hidden field, silently "accept" it
+  // (do NOT send, and do not signal an error to the bot).
+  const honeypot = document.getElementById('website_hp');
+  if (honeypot && honeypot.value.trim() !== '') {
+    clearAllFieldErrors();
+    setFormLoading(true);
     setTimeout(() => {
-      submitBtn.disabled = false;
-      btnText.textContent = "Transmission Sent";
-      showStatus(`Thank you, ${name}! Your transmission has been queued. Preparing official email client as backup...`, "success");
+      setFormLoading(false);
+      document.getElementById('contactForm').reset();
+      showFormStatus(CONTACT_SUCCESS_MSG, 'success');
+    }, 600);
+    return;
+  }
 
-      const mailtoUrl = `mailto:c.anish.p@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
-      
-      setTimeout(() => {
-        form.reset();
-        btnText.textContent = "Send Transmission";
-        window.location.href = mailtoUrl;
-      }, 1500);
+  // 1. Validate all fields.
+  const { valid, errors, values } = validateContactForm();
+  clearFormStatus();
 
-    }, 800);
+  if (!valid) {
+    Object.keys(errors).forEach(fieldKey => showFieldError(fieldKey, errors[fieldKey]));
+
+    // Summarise for the aria-live status region (not colour-only).
+    showFormStatus('Please correct the highlighted fields and try again.', 'error');
+
+    // Focus the first invalid field for keyboard users.
+    const firstInvalid = ['name', 'email', 'subject', 'message'].find(f => errors[f]);
+    if (firstInvalid) {
+      const input = document.getElementById(contactFieldMeta[firstInvalid].input);
+      if (input) input.focus();
+    }
+    return;
+  }
+
+  // Clear inline errors once valid.
+  clearAllFieldErrors();
+
+  // 2. Graceful handling when the integration isn't ready.
+  if (!isEmailConfigured()) {
+    showFormStatus(CONTACT_CONFIG_MSG, 'error');
+    return;
+  }
+  if (typeof window.emailjs === 'undefined') {
+    showFormStatus(CONTACT_EMAILJS_MSG + buildContactMailtoAnchor(values, 'contact me directly via email'), 'error');
+    return;
+  }
+
+  // 3. Enter loading state.
+  setFormLoading(true);
+
+  // Normalised values (trim whitespace; collapse repeated spaces in the name).
+  const visitorName = values.name.replace(/\s+/g, ' ').trim();
+  const visitorEmail = values.email.trim();
+  const visitorSubject = values.subject.trim();
+  const visitorMessage = values.message.trim();
+
+  // EmailJS template variables.
+  const templateParams = {
+    from_name: visitorName,
+    from_email: visitorEmail,
+    reply_to: visitorEmail,     // lets the owner reply directly to the visitor
+    subject: visitorSubject,
+    message: visitorMessage,
+    to_name: contactOwnerName   // portfolio owner's name
+  };
+
+  try {
+    // 4. Send via EmailJS.
+    await sendContactEmail(templateParams);
+
+    // 5. Success — ONLY shown after EmailJS confirms delivery.
+    contactLastSubmit = now;
+    setFormLoading(false);
+    document.getElementById('contactForm').reset();
+    clearAllFieldErrors();
+    clearFormStatus();
+    showFormStatus(CONTACT_SUCCESS_MSG, 'success');
+  } catch (err) {
+    // Failure — preserve the visitor's entered information.
+    contactLastSubmit = now;
+    setFormLoading(false);
+    clearAllFieldErrors();
+    showFormStatus(CONTACT_FAILURE_MSG + buildContactMailtoAnchor(values, 'contact me directly via email'), 'error');
+  }
+}
+
+// Validate every form field. Returns { valid, errors, values }.
+function validateContactForm() {
+  const errors = {};
+  const values = {};
+
+  Object.keys(contactFieldMeta).forEach(fieldKey => {
+    const input = document.getElementById(contactFieldMeta[fieldKey].input);
+    const value = input ? input.value : '';
+    values[fieldKey] = value;
+
+    const error = validateContactField(fieldKey, value);
+    if (error) errors[fieldKey] = error;
   });
 
-  function showStatus(text, type) {
-    statusMsg.textContent = text;
-    statusMsg.className = `form-status-msg ${type}`;
+  return { valid: Object.keys(errors).length === 0, errors, values };
+}
+
+// Validate a single field. Returns an error string, or null when valid.
+function validateContactField(fieldKey, rawValue) {
+  const value = typeof rawValue === 'string' ? rawValue.trim() : '';
+
+  switch (fieldKey) {
+    case 'name':
+      if (!value) return 'Please enter your full name.';
+      if (value.replace(/\s+/g, ' ').length < 2) return 'Name must be at least 2 characters.';
+      return null;
+
+    case 'email':
+      if (!value) return 'Please enter your email address.';
+      if (!isValidEmail(value)) return 'Please enter a valid email address.';
+      return null;
+
+    case 'subject':
+      if (!value) return 'Please enter a subject.';
+      if (value.length < 3) return 'Subject must be at least 3 characters.';
+      return null;
+
+    case 'message':
+      if (!value) return 'Please enter your message.';
+      if (value.length < 10) return 'Message must be at least 10 characters.';
+      return null;
+
+    default:
+      return null;
+  }
+}
+
+// Show an accessible inline error for a field.
+function showFieldError(fieldKey, message) {
+  const meta = contactFieldMeta[fieldKey];
+  if (!meta) return;
+
+  const input = document.getElementById(meta.input);
+  const errEl = document.getElementById(meta.error);
+
+  if (input) input.setAttribute('aria-invalid', 'true');
+  if (errEl) {
+    errEl.textContent = message;
+    errEl.classList.add('show');
+  }
+}
+
+// Clear a single field's inline error.
+function clearFieldError(fieldKey) {
+  const meta = contactFieldMeta[fieldKey];
+  if (!meta) return;
+
+  const input = document.getElementById(meta.input);
+  const errEl = document.getElementById(meta.error);
+
+  if (input) input.setAttribute('aria-invalid', 'false');
+  if (errEl) {
+    errEl.textContent = '';
+    errEl.classList.remove('show');
+  }
+}
+
+// Clear all inline field errors.
+function clearAllFieldErrors() {
+  Object.keys(contactFieldMeta).forEach(fieldKey => clearFieldError(fieldKey));
+}
+
+// Toggle the loading state on the submit button.
+function setFormLoading(isLoading) {
+  const submitBtn = document.getElementById('contactSubmitBtn');
+  const btnText = document.getElementById('contactBtnText');
+
+  contactSubmitting = isLoading;
+
+  if (submitBtn) {
+    submitBtn.disabled = isLoading;
+    submitBtn.classList.toggle('loading', isLoading);
+    submitBtn.setAttribute('aria-busy', isLoading ? 'true' : 'false');
+  }
+  if (btnText) {
+    btnText.textContent = isLoading ? 'Sending...' : 'Send Message';
+  }
+}
+
+// Show a status notification (aria-live region communicates it to screen readers).
+function showFormStatus(message, type) {
+  const statusMsg = document.getElementById('formStatusMsg');
+  if (!statusMsg) return;
+
+  statusMsg.className = `form-status-msg ${type}`;
+  if (type === 'error') {
+    // Errors may embed a safe mailto fallback link.
+    statusMsg.innerHTML = message;
+  } else {
+    statusMsg.textContent = message;
+  }
+}
+
+// Clear the status notification.
+function clearFormStatus() {
+  const statusMsg = document.getElementById('formStatusMsg');
+  if (!statusMsg) return;
+
+  statusMsg.className = 'form-status-msg';
+  statusMsg.textContent = '';
+}
+
+// Check that all three EmailJS values are present and not placeholders.
+function isEmailConfigured() {
+  const hasPublic = emailConfig.publicKey && emailConfig.publicKey !== 'PASTE_YOUR_EMAILJS_PUBLIC_KEY_HERE';
+  const hasService = emailConfig.serviceId && emailConfig.serviceId !== 'PASTE_YOUR_SERVICE_ID_HERE';
+  const hasTemplate = emailConfig.templateId && emailConfig.templateId !== 'PASTE_YOUR_TEMPLATE_ID_HERE';
+  return hasPublic && hasService && hasTemplate;
+}
+
+// Send the actual form data via EmailJS. Throws on failure.
+function sendContactEmail(templateParams) {
+  if (typeof window.emailjs === 'undefined') {
+    return Promise.reject(new Error('EmailJS SDK is not available.'));
   }
 
-  function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
+  return window.emailjs.send(
+    emailConfig.serviceId,
+    emailConfig.templateId,
+    templateParams,
+    { publicKey: emailConfig.publicKey }
+  );
+}
+
+// Build a clickable mailto: fallback using the portfolio owner's real email.
+function buildContactMailtoAnchor(values, label) {
+  const subject = (values && values.subject ? values.subject.trim() : '') || 'Portfolio Contact';
+  const body = values && values.name
+    ? `Name: ${values.name.replace(/\s+/g, ' ').trim()}\nEmail: ${values.email.trim()}\n\nMessage:\n${values.message.trim()}`
+    : '';
+  const href = `mailto:${contactOwnerEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  return `<a href="${href}">${label}</a>`;
+}
+
+// Confirm required form elements exist before processing submission.
+function contactElsExist() {
+  return !!(
+    document.getElementById('contactForm') &&
+    document.getElementById('cName') &&
+    document.getElementById('cEmail') &&
+    document.getElementById('cSubject') &&
+    document.getElementById('cMessage')
+  );
+}
+
+// Reusable email format check.
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 /* ---------------------------------------------------------
