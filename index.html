@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anish C.P — AI &amp; Data Science Engineer | Software Developer</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Portfolio of Anish C.P — AI & Data Science Engineering student, Azure-certified developer, and embedded IoT builder. Explore projects, certifications, and technical capabilities." />
+  <meta name="keywords" content="Anish CP, Anish C.P, AI Engineer, Data Science, Software Developer, IoT, ESP32, Python, Java, Azure AZ-900, RideCalm, PDKVCET, Chennai, Portfolio" />
+  <meta name="author" content="Anish C.P" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#070a13" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Anish C.P — AI & Data Science Engineer | Software Developer" />
+  <meta property="og:description" content="AI & Data Science engineering student, Azure-certified developer, and embedded IoT systems builder." />
+  <meta property="og:image" content="assets/images/me_prof.png" />
+  <meta property="og:url" content="https://github.com/Anishcp2006" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Anish C.P — AI & Data Science Engineer" />
+  <meta name="twitter:description" content="AI & Data Science engineering student, Azure-certified developer, and embedded IoT systems builder." />
+  <meta name="twitter:image" content="assets/images/me_prof.png" />
+
+  <!-- Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Anish C.P",
+    "jobTitle": "AI & Data Science Engineering Student",
+    "affiliation": {
+      "@type": "EducationalOrganization",
+      "name": "Prince Dr. K. Vasudevan College of Engineering and Technology"
+    },
+    "alumniOf": "Christucoil LMS Higher Secondary School",
+    "knowsAbout": ["Artificial Intelligence", "Data Science", "Machine Learning", "Embedded Systems", "ESP32", "Python", "Java", "Microsoft Azure", "IoT Architecture"],
+    "telephone": "+91 94453 51306",
+    "email": "c.anish.p@gmail.com",
+    "sameAs": [
+      "https://github.com/Anishcp2006",
+      "https://www.linkedin.com/in/anish-cp/"
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Accessible Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to Main Content</a>
+
+  <!-- ============================================================
+       SCROLL PROGRESS BAR (ADVANCED)
+  ============================================================ -->
+  <div class="scroll-progress-container" aria-hidden="true">
+    <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+  </div>
+
+  <!-- ============================================================
+       PRELOADER — Technical Kernel Boot Loader
+  ============================================================ -->
+  <div id="preloader" role="status" aria-label="System loading">
+    <div class="preloader-card">
+      <div class="preloader-header">
+        <div class="preloader-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="preloader-title">ANISH_OS v2.6 // SYSTEM BOOT</div>
+      </div>
+      <div class="preloader-logs" id="preloaderLogs">
+        <div>&gt; mounting /dev/portfolio_core ........... <span class="log-ok">READY</span></div>
+        <div>&gt; checking telemetry: anish_cp .......... <span class="log-ok">VERIFIED</span></div>
+        <div>&gt; initializing neural &amp; IoT stack ..... <span class="log-ok">ONLINE</span></div>
+      </div>
+      <div class="preloader-bar-wrap">
+        <div class="preloader-progress-info">
+          <span>INITIALIZING</span>
+          <span id="preloaderPct">0%</span>
+        </div>
+        <div class="preloader-bar">
+          <div class="preloader-bar-fill" id="preloaderBarFill"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       CUSTOM CURSOR
+  ============================================================ -->
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <!-- ============================================================
+       BACKGROUND CANVAS & AMBIENT GLOW
+  ============================================================ -->
+  <canvas id="bgCanvas" aria-hidden="true"></canvas>
+  <div class="ambient-glow" aria-hidden="true">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+  </div>
+  <div class="grid-overlay" aria-hidden="true"></div>
+
+  <!-- ============================================================
+       NAVBAR
+  ============================================================ -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#home" class="nav-logo" aria-label="Anish CP Homepage">
+        <span>A<span class="logo-accent">.</span>CP</span>
+        <span class="logo-tag">DEV</span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="nav-links" id="desktopNav" aria-label="Primary Navigation">
+        <a href="#about" class="nav-link"><span class="nav-idx">01</span>About</a>
+        <a href="#skills" class="nav-link"><span class="nav-idx">02</span>Skills</a>
+        <a href="#projects" class="nav-link"><span class="nav-idx">03</span>Projects</a>
+        <a href="#certifications" class="nav-link"><span class="nav-idx">04</span>Certs</a>
+        <a href="#education" class="nav-link"><span class="nav-idx">05</span>Journey</a>
+        <a href="#achievements" class="nav-link"><span class="nav-idx">06</span>Honors</a>
+        <a href="#contact" class="nav-link"><span class="nav-idx">07</span>Contact</a>
+      </nav>
+
+      <!-- Nav Action Controls -->
+      <div class="nav-actions">
+        <!-- Terminal Shortcut Trigger -->
+        <button class="cmd-palette-btn" id="terminalOpenBtn" title="Developer Terminal (Ctrl+K)" aria-label="Open developer terminal">
+          <i class="fa-solid fa-terminal"></i>
+          <kbd>Ctrl+K</kbd>
+        </button>
+
+        <!-- Theme Toggle Button -->
+        <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Dark/Light Mode" aria-label="Toggle visual theme">
+          <i class="fa-solid fa-moon" id="themeIcon"></i>
+        </button>
+
+        <!-- Resume Modal Trigger -->
+        <button class="btn btn-outline btn-sm" id="navResumeBtn">
+          <i class="fa-solid fa-file-pdf"></i> Resume
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Overlay -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="Mobile Navigation">
+    <div>
+      <div class="mobile-nav-links">
+        <a href="#home" class="mobile-nav-link"><span class="nav-idx">00</span>Home</a>
+        <a href="#about" class="mobile-nav-link"><span class="nav-idx">01</span>About</a>
+        <a href="#skills" class="mobile-nav-link"><span class="nav-idx">02</span>Skills</a>
+        <a href="#projects" class="mobile-nav-link"><span class="nav-idx">03</span>Projects</a>
+        <a href="#certifications" class="mobile-nav-link"><span class="nav-idx">04</span>Certifications</a>
+        <a href="#education" class="mobile-nav-link"><span class="nav-idx">05</span>Journey</a>
+        <a href="#achievements" class="mobile-nav-link"><span class="nav-idx">06</span>Achievements</a>
+        <a href="#contact" class="mobile-nav-link"><span class="nav-idx">07</span>Contact</a>
+      </div>
+    </div>
+
+    <div class="mobile-nav-footer">
+      <button class="btn btn-primary" id="mobileResumeBtn" style="width: 100%;">
+        <i class="fa-solid fa-file-pdf"></i> View &amp; Download Resume
+      </button>
+      <div class="mobile-socials">
+        <a href="https://github.com/Anishcp2006" target="_blank" rel="noopener noreferrer" class="mobile-social-btn" aria-label="GitHub Profile">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/anish-cp/" target="_blank" rel="noopener noreferrer" class="mobile-social-btn" aria-label="LinkedIn Profile">
+          <i class="fa-brands fa-linkedin-in"></i>
+        </a>
+        <a href="mailto:c.anish.p@gmail.com" class="mobile-social-btn" aria-label="Email Me">
+          <i class="fa-solid fa-envelope"></i>
+        </a>
+        <a href="tel:+919445351306" class="mobile-social-btn" aria-label="Call Me">
+          <i class="fa-solid fa-phone"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MAIN CONTENT
+  ============================================================ -->
+  <main id="main-content">
+
+    <!-- -----------------------------------------------------------
+         HERO SECTION
+    ------------------------------------------------------------ -->
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero-grid">
+
+          <!-- Left Column: Copy & Actions -->
+          <div class="hero-content">
+            <!-- Open to Opportunities Pill -->
+            <div class="hero-status-pill">
+              <span class="status-dot-pulse"></span>
+              <span class="status-text">OPEN TO INTERNSHIPS &amp; OPPORTUNITIES</span>
+            </div>
+
+            <div class="hero-greeting">Hi, my name is</div>
+
+            <h1 class="hero-title">
+              Anish <span class="text-gradient">C.P</span>
+            </h1>
+
+            <div class="hero-role-wrapper">
+              <span>I engineer</span>
+              <span id="typedRole" class="hero-typed-text"></span>
+            </div>
+
+            <p class="hero-description">
+              Third-year AI &amp; Data Science engineering student at PDKVCET. Microsoft Azure certified developer bridging physical microcontrollers, real-time IoT telemetry, machine learning, and high-performance software.
+            </p>
+
+            <!-- Action Buttons -->
+            <div class="hero-cta-group">
+              <a href="#projects" class="btn btn-primary">
+                <span>Explore Work</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+              <button class="btn btn-outline" id="heroResumeBtn">
+                <i class="fa-solid fa-file-pdf"></i>
+                <span>Resume</span>
+              </button>
+              <a href="#contact" class="btn btn-subtle">
+                <i class="fa-regular fa-paper-plane"></i>
+                <span>Let's Connect</span>
+              </a>
+            </div>
+
+            <!-- Factual Metadata Badges -->
+            <div class="hero-meta-badges">
+              <div class="hero-meta-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>Kanyakumari / Chennai, India</span>
+              </div>
+              <div class="hero-meta-item">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>PDKVCET · B.Tech AI &amp; DS '27</span>
+              </div>
+              <div class="hero-meta-item">
+                <i class="fa-brands fa-microsoft"></i>
+                <span>Azure AZ-900 Certified</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Visual Frame with Real Photo -->
+          <div class="hero-visual">
+            <div class="hero-photo-wrapper">
+              <div class="hero-photo-inner">
+                <img src="assets/images/me_prof.png" alt="Anish C.P — AI & Data Science Engineer" class="hero-photo" width="941" height="838" />
+              </div>
+
+              <!-- Subtle Floating Badges -->
+              <div class="floating-badge badge-top-right">
+                <i class="fa-solid fa-microchip"></i>
+                <span>ESP32 &amp; IoT</span>
+              </div>
+
+              <div class="floating-badge badge-bottom-left">
+                <i class="fa-brands fa-python"></i>
+                <span>Python · ML</span>
+              </div>
+
+              <div class="floating-badge badge-bottom-right">
+                <i class="fa-brands fa-microsoft"></i>
+                <span>Azure Cloud</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="scroll-indicator" aria-hidden="true">
+        <span>SCROLL</span>
+        <div class="scroll-mouse">
+          <div class="scroll-wheel"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------------------
+         ABOUT SECTION
+    ------------------------------------------------------------ -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">
+            <i class="fa-solid fa-user-astronaut"></i>
+            <span>01 // SYSTEM.ABOUT</span>
+          </div>
+          <h2 class="section-title">About the Engineer</h2>
+          <p class="section-subtitle">Blending hardware sensing, machine intelligence, and scalable software architecture.</p>
+        </div>
+
+        <div class="about-grid">
+
+          <!-- Left Visual Card -->
+          <div class="about-visual">
+            <div class="about-card-frame">
+              <img src="assets/images/me_portrait.png" alt="Anish C.P portrait" class="about-img" loading="lazy" />
+              <div class="about-frame-badge">
+                <div class="badge-label">ACADEMIC &amp; TECHNICAL FOCUS</div>
+                <div class="badge-text">B.Tech Artificial Intelligence &amp; Data Science</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Content Column -->
+          <div class="about-text-content">
+            <p class="about-lead">
+              I am an aspiring Artificial Intelligence and Data Science engineer driven by a passion for building systems that sense the physical world, process data intelligently, and deliver meaningful user experiences.
+            </p>
+            <p class="about-paragraph">
+              Currently pursuing my B.Tech at <strong>Prince Dr. K. Vasudevan College of Engineering and Technology (2023–2027)</strong>. I work across the full problem spectrum: programming ESP32 microcontrollers and load sensors for edge telemetry, implementing analytical and machine learning algorithms in Python, writing backend and desktop logic in Java, and building modern, responsive web interfaces.
+            </p>
+            <p class="about-paragraph">
+              As a Microsoft Certified Azure Fundamentals holder (AZ-900), I focus on clean architecture, reliable data transmission, and reproducible solutions. Outside core academics, I actively coordinate corporate-level technical symposia (such as DIGINOVA'25) and explore creative digital media.
+            </p>
+
+            <!-- Creative & Technical Interest Tags -->
+            <div class="about-interests">
+              <span class="interest-tag"><i class="fa-solid fa-brain"></i> Artificial Intelligence</span>
+              <span class="interest-tag"><i class="fa-solid fa-microchip"></i> Embedded IoT</span>
+              <span class="interest-tag"><i class="fa-solid fa-chart-line"></i> Data Analytics</span>
+              <span class="interest-tag"><i class="fa-solid fa-gamepad"></i> Game Dev</span>
+              <span class="interest-tag"><i class="fa-solid fa-pen-ruler"></i> UI/UX Design</span>
+              <span class="interest-tag"><i class="fa-solid fa-camera"></i> Photography &amp; Editing</span>
+            </div>
+
+            <!-- Factual Animated Statistics Grid -->
+            <div class="about-stats-grid">
+              <div class="stat-item">
+                <div class="stat-number-wrap">
+                  <span class="stat-number" data-target="4">0</span>
+                  <span class="stat-suffix">+</span>
+                </div>
+                <span class="stat-label">Projects Built</span>
+              </div>
+
+              <div class="stat-item">
+                <div class="stat-number-wrap">
+                  <span class="stat-number" data-target="75">0</span>
+                  <span class="stat-suffix">%</span>
+                </div>
+                <span class="stat-label">Current CGPA</span>
+              </div>
+
+              <div class="stat-item">
+                <div class="stat-number-wrap">
+                  <span class="stat-number" data-target="4">0</span>
+                  <span class="stat-suffix"></span>
+                </div>
+                <span class="stat-label">Certifications</span>
+              </div>
+
+              <div class="stat-item">
+                <div class="stat-number-wrap">
+                  <span class="stat-number" data-target="2023">0</span>
+                  <span class="stat-suffix"></span>
+                </div>
+                <span class="stat-label">Coding Since</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------------------
+         SKILLS SECTION
+    ------------------------------------------------------------ -->
+    <section id="skills" class="section">
+      <div class="container">
+        <div class="section-header center">
+          <div class="section-eyebrow">
+            <i class="fa-solid fa-code"></i>
+            <span>02 // SYSTEM.SKILLS</span>
+          </div>
+          <h2 class="section-title">Technical Capabilities &amp; Stack</h2>
+          <p class="section-subtitle">Grounded in programming fundamentals, cloud computing, embedded hardware, and software tooling.</p>
+        </div>
+
+        <div class="skills-container">
+
+          <!-- Category Filter Tabs -->
+          <div class="skills-tabs" role="tablist" aria-label="Skills Category Filter">
+            <button class="skill-tab-btn active" data-filter="all" role="tab" aria-selected="true">
+              <i class="fa-solid fa-border-all"></i> All Technologies
+            </button>
+            <button class="skill-tab-btn" data-filter="prog" role="tab" aria-selected="false">
+              <i class="fa-solid fa-code"></i> Programming
+            </button>
+            <button class="skill-tab-btn" data-filter="ai-cloud" role="tab" aria-selected="false">
+              <i class="fa-solid fa-brain"></i> AI, Data &amp; Cloud
+            </button>
+            <button class="skill-tab-btn" data-filter="iot" role="tab" aria-selected="false">
+              <i class="fa-solid fa-microchip"></i> Embedded IoT
+            </button>
+            <button class="skill-tab-btn" data-filter="web" role="tab" aria-selected="false">
+              <i class="fa-solid fa-globe"></i> Web &amp; UI/UX
+            </button>
+            <button class="skill-tab-btn" data-filter="tools" role="tab" aria-selected="false">
+              <i class="fa-solid fa-screwdriver-wrench"></i> Tools &amp; Workflow
+            </button>
+          </div>
+
+          <!-- Skills Cards Grid Container (Rendered Dynamically via JS) -->
+          <div id="skillsContainer" class="skills-cards-grid">
+            <!-- Dynamic skills injected by script.js -->
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------------------
+         PROJECTS SECTION
+    ------------------------------------------------------------ -->
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>03 // SYSTEM.PROJECTS</span>
+          </div>
+          <h2 class="section-title">Featured Work &amp; Engineering Builds</h2>
+          <p class="section-subtitle">Real-world applications spanning embedded IoT telemetry, desktop database software, and responsive web systems.</p>
+        </div>
+
+        <!-- Featured Flagship Project Banner: RideCalm -->
+        <div class="featured-project-card" id="featuredProjectBox">
+          <div class="featured-project-media">
+            <span class="featured-badge-pill"><i class="fa-solid fa-star"></i> Flagship IoT Build</span>
+            <img src="assets/projects/ridecalm.svg" alt="RideCalm Smart Train Seat Occupancy System Diagram" loading="lazy" />
+          </div>
+          <div class="featured-project-body">
+            <div>
+              <div class="featured-tagline">EMBEDDED IOT &amp; SENSOR TELEMETRY</div>
+              <h3 class="featured-title">RideCalm — Smart Train Seat Occupancy System</h3>
+              <p class="featured-desc">
+                An IoT-based real-time seat occupancy monitoring system for railway passenger coaches. Integrates ESP32 microcontrollers with Force Sensitive Resistors (FSRs) and load cells to stream live seat vacancy telemetry over Wi-Fi/Bluetooth to commuter devices.
+              </p>
+            </div>
+
+            <div class="tech-tag-list">
+              <span class="tech-tag">ESP32</span>
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Load Sensors</span>
+              <span class="tech-tag">Wi-Fi &amp; BLE</span>
+              <span class="tech-tag">IoT Architecture</span>
+            </div>
+
+            <div class="project-actions">
+              <button class="btn btn-primary btn-sm open-case-study-btn" data-project-id="ridecalm">
+                <span>View Full Case Study</span>
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </button>
+              <a href="https://github.com/Anishcp2006" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+                <i class="fa-brands fa-github"></i>
+                <span>GitHub Repo</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Bar for All Projects -->
+        <div class="projects-filter-bar">
+          <button class="filter-btn active" data-project-filter="all">All Projects</button>
+          <button class="filter-btn" data-project-filter="iot">IoT &amp; Embedded</button>
+          <button class="filter-btn" data-project-filter="desktop">Desktop &amp; Database</button>
+          <button class="filter-btn" data-project-filter="web">Web &amp; Frontend</button>
+        </div>
+
+        <!-- Projects Grid (Injected via JS) -->
+        <div class="projects-grid" id="projectsGrid">
+          <!-- Dynamic Project Cards Injected Here -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------------------
+         CERTIFICATIONS SECTION
+    ------------------------------------------------------------ -->
+    <section id="certifications" class="section">
+      <div class="container">
+        <div class="section-header center">
+          <div class="section-eyebrow">
+            <i class="fa-solid fa-certificate"></i>
+            <span>04 // SYSTEM.CERTIFICATIONS</span>
+          </div>
+          <h2 class="section-title">Verified Certifications</h2>
+          <p class="section-subtitle">Formal technical certifications validating cloud competence, AI readiness, and technical skills.</p>
+        </div>
+
+        <!-- Certifications Grid -->
+        <div class="certs-grid" id="certsGrid">
+          <!-- Dynamic Cert Cards Injected Here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------------------
+         EDUCATION & JOURNEY TIMELINE
+    ------------------------------------------------------------ -->
+    <section id="education" class="section">
+      <div class="container">
+        <div class="section-header center">
+          <div class="section-eyebrow">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>05 // SYSTEM.EDUCATION</span>
+          </div>
+          <h2 class="section-title">Academic &amp; Learning Journey</h2>
+          <p class="section-subtitle">Structured academic milestones and continuous development in Artificial Intelligence and engineering.</p>
+        </div>
+
+        <div class="timeline-wrap" id="educationTimeline">
+          <!-- Timeline Nodes Injected Here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------------------
+         ACHIEVEMENTS SECTION
+    ------------------------------------------------------------ -->
+    <section id="achievements" class="section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">
+            <i class="fa-solid fa-trophy"></i>
+            <span>06 // SYSTEM.HONORS</span>
+          </div>
+          <h2 class="section-title">Achievements &amp; Event Leadership</h2>
+          <p class="section-subtitle">Honors and practical contributions across technical event organization and engineering innovation.</p>
+        </div>
+
+        <div class="achieve-grid" id="achievementsGrid">
+          <!-- Dynamic Achievement Cards Injected Here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------------------
+         GITHUB & SOCIAL PROOF
+    ------------------------------------------------------------ -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="github-showcase">
+          <div class="github-header-bar">
+            <div class="github-user-info">
+              <div class="github-avatar-icon">
+                <i class="fa-brands fa-github"></i>
+              </div>
+              <div>
+                <h3 style="font-size: 1.25rem;">Anishcp2006 on GitHub</h3>
+                <p class="mono" style="font-size: 0.85rem; color: var(--text-dim);">Open source repositories, embedded code &amp; prototypes</p>
+              </div>
+            </div>
+            <a href="https://github.com/Anishcp2006" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+              <span>View GitHub Profile</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+
+          <div class="github-repos-grid">
+            <a href="https://github.com/Anishcp2006" target="_blank" rel="noopener noreferrer" class="github-repo-card">
+              <div class="repo-header">
+                <span>RideCalm-IoT</span>
+                <i class="fa-solid fa-code-branch"></i>
+              </div>
+              <p class="repo-desc">ESP32 firmware &amp; telemetry scripts for smart train seat occupancy detection.</p>
+            </a>
+            <a href="https://github.com/Anishcp2006" target="_blank" rel="noopener noreferrer" class="github-repo-card">
+              <div class="repo-header">
+                <span>Student-Management-System</span>
+                <i class="fa-solid fa-code-branch"></i>
+              </div>
+              <p class="repo-desc">Java Swing application with JDBC &amp; MySQL relational database integration.</p>
+            </a>
+            <a href="https://github.com/Anishcp2006" target="_blank" rel="noopener noreferrer" class="github-repo-card">
+              <div class="repo-header">
+                <span>Weather-App</span>
+                <i class="fa-solid fa-code-branch"></i>
+              </div>
+              <p class="repo-desc">Real-time weather analytics interface fetching REST meteorological endpoints.</p>
+            </a>
+            <a href="https://github.com/Anishcp2006" target="_blank" rel="noopener noreferrer" class="github-repo-card">
+              <div class="repo-header">
+                <span>Developer-Portfolio</span>
+                <i class="fa-solid fa-code-branch"></i>
+              </div>
+              <p class="repo-desc">High-performance responsive personal engineering showcase &amp; design system.</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------------------
+         CONTACT SECTION
+    ------------------------------------------------------------ -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">
+            <i class="fa-solid fa-envelope"></i>
+            <span>07 // SYSTEM.CONTACT</span>
+          </div>
+          <h2 class="section-title">Let's Build Something Meaningful</h2>
+          <p class="section-subtitle">Open to internships, AI/IoT engineering collaborations, and technical discussions. I respond promptly.</p>
+        </div>
+
+        <div class="contact-grid">
+
+          <!-- Contact Form with Validation -->
+          <div class="contact-form-wrap">
+            <form class="contact-form" id="contactForm" novalidate>
+              <div class="form-group">
+                <label for="cName" class="form-label">Full Name *</label>
+                <input type="text" id="cName" class="form-input" placeholder="e.g. Alex Morgan" required autocomplete="name" />
+              </div>
+
+              <div class="form-group">
+                <label for="cEmail" class="form-label">Email Address *</label>
+                <input type="email" id="cEmail" class="form-input" placeholder="e.g. alex@company.com" required autocomplete="email" />
+              </div>
+
+              <div class="form-group">
+                <label for="cSubject" class="form-label">Subject *</label>
+                <input type="text" id="cSubject" class="form-input" placeholder="e.g. Internship Opportunity / Technical Collaboration" required />
+              </div>
+
+              <div class="form-group">
+                <label for="cMessage" class="form-label">Message (Minimum 15 characters) *</label>
+                <textarea id="cMessage" class="form-textarea" placeholder="Describe the opportunity, technical inquiry, or message..." required minlength="15"></textarea>
+              </div>
+
+              <div id="formStatusMsg" class="form-status-msg" role="alert"></div>
+
+              <button type="submit" class="btn btn-primary" id="contactSubmitBtn">
+                <span id="contactBtnText">Send Transmission</span>
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </form>
+          </div>
+
+          <!-- Direct Contact Cards -->
+          <div class="contact-info-list">
+
+            <a href="mailto:c.anish.p@gmail.com" class="contact-card-link">
+              <div class="contact-card-icon">
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+              <div class="contact-card-content">
+                <span class="contact-card-label">Official Email</span>
+                <span class="contact-card-val mono">c.anish.p@gmail.com</span>
+              </div>
+            </a>
+
+            <a href="tel:+919445351306" class="contact-card-link">
+              <div class="contact-card-icon">
+                <i class="fa-solid fa-phone"></i>
+              </div>
+              <div class="contact-card-content">
+                <span class="contact-card-label">Phone Contact</span>
+                <span class="contact-card-val mono">+91 94453 51306</span>
+              </div>
+            </a>
+
+            <a href="https://www.linkedin.com/in/anish-cp/" target="_blank" rel="noopener noreferrer" class="contact-card-link">
+              <div class="contact-card-icon">
+                <i class="fa-brands fa-linkedin-in"></i>
+              </div>
+              <div class="contact-card-content">
+                <span class="contact-card-label">LinkedIn Profile</span>
+                <span class="contact-card-val">linkedin.com/in/anish-cp</span>
+              </div>
+            </a>
+
+            <a href="https://github.com/Anishcp2006" target="_blank" rel="noopener noreferrer" class="contact-card-link">
+              <div class="contact-card-icon">
+                <i class="fa-brands fa-github"></i>
+              </div>
+              <div class="contact-card-content">
+                <span class="contact-card-label">GitHub Workspace</span>
+                <span class="contact-card-val">github.com/Anishcp2006</span>
+              </div>
+            </a>
+
+            <div class="contact-card-link" style="cursor: default;">
+              <div class="contact-card-icon">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div class="contact-card-content">
+                <span class="contact-card-label">Current Base</span>
+                <span class="contact-card-val">Kanyakumari / Chennai, Tamil Nadu, IN</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       MODALS: CASE STUDY, CERTIFICATE LIGHTBOX, RESUME, TERMINAL
+  ============================================================ -->
+
+  <!-- 1. Project Case Study Modal -->
+  <div class="modal-backdrop" id="projectModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalProjectTitle">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalProjectTitle">Project Details</h3>
+        <button class="modal-close-btn" id="closeProjectModalBtn" aria-label="Close modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="modalProjectBody">
+        <!-- Content populated dynamically by script.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Certificate Lightbox Modal -->
+  <div class="modal-backdrop" id="certModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalCertTitle">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalCertTitle">Certificate Details</h3>
+        <button class="modal-close-btn" id="closeCertModalBtn" aria-label="Close certificate lightbox">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="modalCertBody">
+        <!-- Content populated dynamically by script.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Resume Modal -->
+  <div class="modal-backdrop" id="resumeModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalResumeTitle">
+    <div class="modal-container resume-modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalResumeTitle">Curriculum Vitae — Anish C.P</h3>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <a href="ANISH_RESUMEE_.pdf" download="Anish_CP_Resume.pdf" class="btn btn-primary btn-sm">
+            <i class="fa-solid fa-download"></i> Download PDF
+          </a>
+          <button class="modal-close-btn" id="closeResumeModalBtn" aria-label="Close resume viewer">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+      <div class="modal-body" style="padding: 10px; height: 100%;">
+        <iframe src="ANISH_RESUMEE_.pdf" class="resume-iframe" title="Anish C.P Resume PDF"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Developer Terminal Modal (Easter Egg / Quick Command Palette) -->
+  <div class="modal-backdrop" id="terminalModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTerminalTitle">
+    <div class="modal-container terminal-modal-container">
+      <div class="terminal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <i class="fa-solid fa-terminal" style="color: var(--accent-cyan); font-size: 0.9rem;"></i>
+          <span class="mono" id="modalTerminalTitle" style="font-size: 0.85rem; font-weight: 600;">ANISH_DEV_CLI (v2.6)</span>
+        </div>
+        <button class="modal-close-btn" id="closeTerminalModalBtn" aria-label="Close developer terminal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="terminal-body" id="terminalBody">
+        <div class="terminal-output" id="terminalOutput">Welcome to Anish C.P Developer Console!
+Type 'help' to inspect available system commands.
+Type 'about', 'skills', 'projects', 'certs', 'contact', 'azure', or 'clear'.</div>
+        <div class="terminal-input-row">
+          <span class="terminal-prompt">&gt;</span>
+          <input type="text" id="terminalInput" class="terminal-input" placeholder="Type a command (e.g. help)..." autocomplete="off" spellcheck="false" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#home" class="nav-logo">
+            <span>A<span class="logo-accent">.</span>CP</span>
+            <span class="logo-tag">DEV</span>
+          </a>
+          <p class="footer-tagline">Engineered with precision, data-driven intelligence, and modern web architecture.</p>
+        </div>
+
+        <div class="footer-social-links">
+          <a href="https://github.com/Anishcp2006" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="GitHub Profile">
+            <i class="fa-brands fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/anish-cp/" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="LinkedIn Profile">
+            <i class="fa-brands fa-linkedin-in"></i>
+          </a>
+          <a href="mailto:c.anish.p@gmail.com" class="footer-social-btn" aria-label="Email Me">
+            <i class="fa-solid fa-envelope"></i>
+          </a>
+          <a href="tel:+919445351306" class="footer-social-btn" aria-label="Call Me">
+            <i class="fa-solid fa-phone"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2026 Anish C.P. All rights reserved. Built with semantic HTML5, CSS3 &amp; JavaScript.</p>
+        <button id="backToTopBtn" class="back-to-top-btn" aria-label="Back to top of page">
+          <span>BACK TO TOP</span>
+          <i class="fa-solid fa-arrow-up"></i>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       SCRIPTS (GSAP, ScrollTrigger, Lenis, Typed, Vanilla Tilt)
+  ============================================================ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

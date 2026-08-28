@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="p-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080e14"/>
+      <stop offset="50%" stop-color="#061a14"/>
+      <stop offset="100%" stop-color="#05080c"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#p-bg)"/>
+  <rect x="55" y="45" width="690" height="410" rx="16" fill="#0e141c" stroke="#1f2a37" stroke-width="2"/>
+  <rect x="55" y="45" width="690" height="40" rx="16" fill="#141d27"/>
+  <circle cx="80" cy="65" r="6" fill="#f43f5e"/>
+  <circle cx="100" cy="65" r="6" fill="#fbbf24"/>
+  <circle cx="120" cy="65" r="6" fill="#00f5a0"/>
+  <text x="400" y="70" font-family="'JetBrains Mono', monospace" font-size="12" fill="#00f5a0" text-anchor="middle">anishcp.dev — Personal Engineering Showcase</text>
+
+  <rect x="85" y="110" width="320" height="14" rx="4" fill="#00f5a0" opacity="0.6"/>
+  <rect x="85" y="135" width="260" height="28" rx="6" fill="#f8fafc"/>
+  <rect x="85" y="175" width="300" height="45" rx="6" fill="#141d27"/>
+  
+  <rect x="85" y="235" width="120" height="36" rx="8" fill="#00f5a0"/>
+  <rect x="215" y="235" width="130" height="36" rx="8" fill="#141d27" stroke="#334155" stroke-width="1"/>
+
+  <rect x="460" y="110" width="250" height="220" rx="20" fill="#141d27" stroke="#00f5a0" stroke-width="2"/>
+  <circle cx="585" cy="190" r="45" fill="#00f5a0" opacity="0.4"/>
+  <rect x="525" y="250" width="120" height="40" rx="10" fill="#00f5a0" opacity="0.7"/>
+
+  <rect x="85" y="295" width="350" height="135" rx="10" fill="#141d27" stroke="#1f2a37" stroke-width="1"/>
+  <text x="105" y="330" font-family="'JetBrains Mono', monospace" font-size="12" fill="#00f5a0">// Bento UI &amp; Design Architecture</text>
+  <text x="105" y="360" font-family="'JetBrains Mono', monospace" font-size="12" fill="#94a3b8">const stack = ['Vanilla JS', 'GSAP', 'Lenis', 'CSS3'];</text>
+  <text x="105" y="390" font-family="'JetBrains Mono', monospace" font-size="12" fill="#00f5a0">✔ Production Ready &amp; Accessible (WCAG AA)</text>
+</svg>
