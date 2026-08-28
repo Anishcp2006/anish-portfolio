@@ -1238,9 +1238,9 @@ function initDeveloperTerminal() {
 // 5. Paste your EmailJS details below.
 
 const emailConfig = {
-    publicKey: "PASTE_YOUR_EMAILJS_PUBLIC_KEY_HERE",
-    serviceId: "PASTE_YOUR_SERVICE_ID_HERE",
-    templateId: "PASTE_YOUR_TEMPLATE_ID_HERE"
+    publicKey: "qBfu2Gu0B0bsM2v1B",
+    serviceId: "service_9sxishj",
+    templateId: "template_ruuo4kt"
 };
 
 // In your EmailJS template, use these variables:
