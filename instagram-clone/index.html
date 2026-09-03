@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Instagram — Clone</title>
+  <meta name="description" content="A fully client-side Instagram clone: feed, stories, reels, messages, explore and profiles. Built with vanilla HTML, CSS and JavaScript." />
+  <meta name="theme-color" content="#000000" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23feda75'/%3E%3Cstop offset='.3' stop-color='%23fa7e1e'/%3E%3Cstop offset='.6' stop-color='%23d62976'/%3E%3Cstop offset='1' stop-color='%23962fbf'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='2' y='2' width='28' height='28' rx='8' fill='url(%23g)'/%3E%3Crect x='8' y='8' width='16' height='16' rx='5' fill='none' stroke='white' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='4' fill='none' stroke='white' stroke-width='2'/%3E%3Ccircle cx='22.5' cy='9.5' r='1.5' fill='white'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════ LOGIN / AUTH SCREEN ══════════════════════ -->
+  <section id="authScreen" class="auth-screen hidden" aria-label="Log in">
+    <div class="auth-card">
+      <div class="auth-brand">
+        <span class="ig-wordmark">Instagram</span>
+      </div>
+
+      <p class="auth-sub" id="authSub">Sign up to see photos and videos from your friends.</p>
+
+      <form id="loginForm" autocomplete="off">
+        <input type="text" id="loginUser" class="auth-input" placeholder="Username" aria-label="Username" />
+        <input type="password" id="loginPass" class="auth-input" placeholder="Password" aria-label="Password" />
+        <button type="submit" id="loginBtn" class="auth-btn" disabled>Log in</button>
+      </form>
+
+      <div class="auth-divider"><span>OR</span></div>
+
+      <button type="button" id="fbLoginBtn" class="auth-fb">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#0095f6"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.09 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.7 4.53-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.89v2.26h3.32l-.53 3.49h-2.79V24C19.61 23.09 24 18.1 24 12.07"/></svg>
+        <span>Log in with Facebook</span>
+      </button>
+
+      <a href="#" class="auth-forgot" id="forgotLink">Forgot password?</a>
+    </div>
+
+    <div class="auth-switch">
+      <span id="authSwitchText">Don't have an account?</span>
+      <button type="button" id="authSwitchBtn" class="auth-switch-btn">Sign up</button>
+    </div>
+
+    <div class="auth-continue">
+      <button type="button" id="continueAsBtn" class="auth-continue-btn">
+        <span class="avatar avatar-sm avatar-img" id="continueAsAvatar"></span>
+        <span>Continue as <b id="continueAsName"></b></span>
+      </button>
+    </div>
+
+    <div class="auth-footer">
+      <span>Get the app.</span>
+      <div class="store-badges" aria-hidden="true">
+        <span class="store-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg> App Store</span>
+        <span class="store-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 1.8 13.7 12 3.6 22.2c-.4-.2-.6-.6-.6-1.2V3c0-.6.2-1 .6-1.2zM15 13.5 5.3 22l10.8-6-1.1-2.5zM18.6 9.8l2.9 1.6c.6.3.6 1 0 1.3l-2.9 1.6-1.7-2.2 1.7-2.3zM5.3 2l9.7 8.5L16.2 8 5.3 2z"/></svg> Google Play</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════ APP SHELL ══════════════════════ -->
+  <div id="appShell" class="app-shell hidden">
+
+    <!-- Desktop sidebar -->
+    <aside id="sidebar" class="sidebar" aria-label="Main navigation">
+      <div class="sidebar-inner">
+        <a href="#" class="sidebar-logo" data-nav="home" aria-label="Instagram home">
+          <span class="ig-wordmark"><svg class="logo-glyph" width="26" height="26" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="g1" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#feda75"/><stop offset=".3" stop-color="#fa7e1e"/><stop offset=".6" stop-color="#d62976"/><stop offset="1" stop-color="#962fbf"/></linearGradient></defs><rect x="2" y="2" width="28" height="28" rx="8" fill="url(#g1)"/><rect x="8" y="8" width="16" height="16" rx="5" fill="none" stroke="#fff" stroke-width="2"/><circle cx="16" cy="16" r="4" fill="none" stroke="#fff" stroke-width="2"/><circle cx="22.5" cy="9.5" r="1.5" fill="#fff"/></svg> Instagram</span>
+        </a>
+
+        <nav class="sidebar-nav" id="sidebarNav">
+          <a href="#" class="side-link active" data-nav="home" title="Home"><span class="side-icon" data-icon="home"></span><span class="side-label">Home</span></a>
+          <button type="button" class="side-link" id="sideSearchBtn" title="Search"><span class="side-icon" data-icon="search"></span><span class="side-label">Search</span></button>
+          <a href="#" class="side-link" data-nav="explore" title="Explore"><span class="side-icon" data-icon="explore"></span><span class="side-label">Explore</span></a>
+          <a href="#" class="side-link" data-nav="reels" title="Reels"><span class="side-icon" data-icon="reels"></span><span class="side-label">Reels</span></a>
+          <a href="#" class="side-link" data-nav="messages" title="Messages"><span class="side-icon" data-icon="messenger"></span><span class="side-badge hidden" id="dmSideBadge"></span><span class="side-label">Messages</span></a>
+          <button type="button" class="side-link" id="sideNotifBtn" title="Notifications"><span class="side-icon" data-icon="heart"></span><span class="side-badge hidden" id="notifSideBadge"></span><span class="side-label">Notifications</span></button>
+          <button type="button" class="side-link" id="sideCreateBtn" title="Create"><span class="side-icon" data-icon="plus-square"></span><span class="side-label">Create</span></button>
+          <a href="#" class="side-link" data-user-profile="" data-nav="profile" title="Profile"><span class="side-icon" data-icon="user"></span><span class="side-label">Profile</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <button type="button" class="side-link" id="sideMoreBtn" title="More"><span class="side-icon" data-icon="hamburger"></span><span class="side-label">More</span></button>
+          <span class="side-userline"><span class="user-line-label" id="sideUserLabel"></span></span>
+        </div>
+      </div>
+
+      <!-- compact rail (collapsed) -->
+      <div class="sidebar-rail" id="sidebarRail">
+        <a href="#" class="rail-link active" data-nav="home" title="Home"><span class="side-icon" data-icon="home"></span></a>
+        <button type="button" class="rail-link" id="railSearchBtn" title="Search"><span class="side-icon" data-icon="search"></span></button>
+        <a href="#" class="rail-link" data-nav="explore" title="Explore"><span class="side-icon" data-icon="explore"></span></a>
+        <a href="#" class="rail-link" data-nav="reels" title="Reels"><span class="side-icon" data-icon="reels"></span></a>
+        <a href="#" class="rail-link" data-nav="messages" title="Messages"><span class="side-icon" data-icon="messenger"></span><span class="side-badge" id="dmRailBadge"></span></a>
+        <button type="button" class="rail-link" id="railNotifBtn" title="Notifications"><span class="side-icon" data-icon="heart"></span><span class="side-badge" id="notifRailBadge"></span></button>
+        <button type="button" class="rail-link" id="railCreateBtn" title="Create"><span class="side-icon" data-icon="plus-square"></span></button>
+        <a href="#" class="rail-link" data-user-profile="" data-nav="profile" title="Profile"><span class="side-icon" id="railUserIcon"></span></a>
+        <button type="button" class="rail-link" id="railMoreBtn" title="More"><span class="side-icon" data-icon="hamburger"></span></button>
+      </div>
+    </aside>
+
+    <!-- Mobile top bar -->
+    <header id="mobileTopbar" class="mobile-topbar">
+      <a href="#" class="mobile-logo" data-nav="home"><span class="ig-wordmark sm">Instagram</span></a>
+      <div class="mobile-top-actions">
+        <button type="button" id="mNotifBtn" class="icon-btn" aria-label="Notifications"><span class="side-icon" data-icon="heart"></span></button>
+        <a href="#" class="icon-btn" data-nav="messages" aria-label="Messages"><span class="side-icon" data-icon="messenger"></span></a>
+      </div>
+    </header>
+
+    <!-- Main views -->
+    <main id="mainContent" class="main-content">
+      <!-- HOME -->
+      <section id="homeView" class="view home-view active">
+        <div class="home-feed-col">
+          <div id="storiesRow" class="stories-row" aria-label="Stories"></div>
+          <div id="feedList" class="feed-list"></div>
+        </div>
+        <aside id="rightPanel" class="right-panel" aria-label="Suggestions"></aside>
+      </section>
+
+      <!-- EXPLORE -->
+      <section id="exploreView" class="view explore-view">
+        <div class="explore-header"><h2>Explore</h2></div>
+        <div id="exploreGrid" class="explore-grid"></div>
+      </section>
+
+      <!-- REELS -->
+      <section id="reelsView" class="view reels-view">
+        <div id="reelsList" class="reels-list"></div>
+      </section>
+
+      <!-- MESSAGES -->
+      <section id="messagesView" class="view messages-view">
+        <div id="dmInbox" class="dm-inbox">
+          <div class="dm-inbox-head">
+            <div>
+              <h2 class="dm-title">Messages</h2>
+              <button type="button" id="newDmBtn" class="icon-btn" aria-label="New message"><span class="side-icon" data-icon="new-message"></span></button>
+            </div>
+          </div>
+          <div id="dmList" class="dm-list"></div>
+        </div>
+        <div id="dmThread" class="dm-thread" hidden>
+          <div class="dm-thread-head">
+            <button type="button" id="dmBackBtn" class="icon-btn back-btn" aria-label="Back"><span class="side-icon" data-icon="back"></span></button>
+            <span id="dmThreadAvatar"></span>
+            <div class="dm-thread-meta"><strong id="dmThreadName"></strong><span id="dmThreadStatus"></span></div>
+          </div>
+          <div id="dmMessages" class="dm-messages"></div>
+          <form id="dmComposer" class="dm-composer">
+            <input type="text" id="dmInput" placeholder="Message..." autocomplete="off" />
+            <button type="submit" id="dmSendBtn">Send</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- PROFILE -->
+      <section id="profileView" class="view profile-view">
+        <div id="profileContent"></div>
+      </section>
+    </main>
+
+    <!-- Mobile bottom nav -->
+    <nav id="bottomNav" class="bottom-nav" aria-label="Mobile navigation">
+      <a href="#" class="bn-link active" data-nav="home" title="Home"><span class="side-icon" data-icon="home"></span></a>
+      <button type="button" class="bn-link" id="bnSearchBtn" title="Search"><span class="side-icon" data-icon="search"></span></button>
+      <button type="button" class="bn-link bn-create" id="bnCreateBtn" title="Create"><span class="side-icon" data-icon="plus-square"></span></button>
+      <a href="#" class="bn-link" data-nav="reels" title="Reels"><span class="side-icon" data-icon="reels"></span></a>
+      <a href="#" class="bn-link" data-user-profile="" data-nav="profile" title="Profile"><span class="side-icon" data-icon="user"></span></a>
+    </nav>
+  </div>
+
+  <!-- ══════════════════════ OVERLAYS ══════════════════════ -->
+
+  <!-- Story viewer -->
+  <div id="storyViewer" class="story-viewer hidden" role="dialog" aria-label="Story">
+    <div id="storyCanvas" class="story-canvas"></div>
+    <button type="button" id="storyClose" class="story-close" aria-label="Close stories"><span class="side-icon" data-icon="close"></span></button>
+  </div>
+
+  <!-- Post detail modal -->
+  <div id="postModal" class="modal-backdrop hidden" role="dialog" aria-label="Post">
+    <div class="post-modal" id="postModalBox"></div>
+  </div>
+
+  <!-- Create post modal -->
+  <div id="createModal" class="modal-backdrop hidden" role="dialog" aria-label="Create new post">
+    <div class="create-modal">
+      <div class="create-head">
+        <button type="button" class="icon-btn" id="createBack" aria-label="Back"><span class="side-icon" data-icon="back"></span></button>
+        <h3>Create new post</h3>
+        <button type="button" id="createShare" class="create-share-btn hidden">Share</button>
+        <button type="button" class="icon-btn" id="createClose2" aria-label="Close" hidden><span class="side-icon" data-icon="close"></span></button>
+      </div>
+      <div class="create-body" id="createBody"></div>
+    </div>
+  </div>
+
+  <!-- Edit profile modal -->
+  <div id="editProfileModal" class="modal-backdrop hidden" role="dialog" aria-label="Edit profile">
+    <div class="edit-modal">
+      <div class="edit-head">
+        <h3>Edit profile</h3>
+        <button type="button" class="icon-btn" id="editClose" aria-label="Close"><span class="side-icon" data-icon="close"></span></button>
+      </div>
+      <div class="edit-body">
+        <div class="edit-avatar-row">
+          <span class="avatar avatar-lg avatar-img" id="editAvatarPrev"></span>
+          <div>
+            <button type="button" id="editAvatarBtn" class="link-btn">Change profile photo</button>
+            <input type="file" id="editAvatarFile" accept="image/*" hidden />
+            <p class="edit-hint">JPG or PNG, max 2 MB</p>
+          </div>
+        </div>
+        <label class="edit-field"><span>Username</span><input id="editUsername" type="text" /></label>
+        <label class="edit-field"><span>Name</span><input id="editName" type="text" /></label>
+        <label class="edit-field"><span>Website</span><input id="editWebsite" type="text" /></label>
+        <label class="edit-field"><span>Bio</span><textarea id="editBio" rows="3"></textarea></label>
+        <p class="edit-error hidden" id="editError">Username is already taken.</p>
+        <div class="edit-actions">
+          <button type="button" id="editCancel" class="btn-ghost">Cancel</button>
+          <button type="button" id="editSave" class="btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- New message modal -->
+  <div id="newDmModal" class="modal-backdrop hidden" role="dialog" aria-label="New message">
+    <div class="dm-new-modal">
+      <div class="dm-new-head">
+        <h3>New message</h3>
+        <button type="button" class="icon-btn" id="newDmClose" aria-label="Close"><span class="side-icon" data-icon="close"></span></button>
+      </div>
+      <div class="dm-new-search"><span>To:</span><input type="text" id="newDmSearch" placeholder="Search..." autocomplete="off" /></div>
+      <div id="newDmResults" class="dm-new-results"></div>
+    </div>
+  </div>
+
+  <!-- Search overlay -->
+  <div id="searchOverlay" class="search-overlay hidden">
+    <div class="search-panel">
+      <div class="search-head">
+        <button type="button" class="icon-btn" id="searchClose" aria-label="Close"><span class="side-icon" data-icon="back"></span></button>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search" autocomplete="off" />
+      </div>
+      <div class="search-body">
+        <p class="search-recent-title" id="searchRecentTitle">Recent</p>
+        <div id="searchResults"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notifications popover -->
+  <div id="notifPopover" class="popover hidden" role="menu">
+    <div class="popover-title">Notifications</div>
+    <div id="notifList" class="popover-list"></div>
+  </div>
+
+  <!-- More popover -->
+  <div id="morePopover" class="popover hidden more-popover" role="menu">
+    <button type="button" class="more-item" id="themeToggle"><span class="side-icon" data-icon="theme"></span>Switch appearance</button>
+    <button type="button" class="more-item" id="settingsBtn"><span class="side-icon" data-icon="settings"></span>Settings</button>
+    <button type="button" class="more-item danger" id="logoutBtn"><span class="side-icon" data-icon="logout"></span>Log out</button>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden" role="status"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

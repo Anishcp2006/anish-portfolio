@@ -156,6 +156,33 @@ const portfolioData = {
       outcome: "A production-grade, responsive developer portfolio achieving optimal performance scores and showcasing genuine software engineering capability.",
       github: "https://github.com/Anishcp2006",
       live: null
+    },
+    {
+      id: "instagram-clone",
+      title: "Instagram Clone — Social Media Web App",
+      category: "web",
+      categoryLabel: "Web & Frontend",
+      featured: false,
+      image: "assets/projects/instagram_clone.svg",
+      tagline: "Fully client-side Instagram clone with feed, stories, reels, DMs & profiles",
+      summary: "A faithful Instagram web clone built from scratch with pure HTML, CSS and vanilla JavaScript — no frameworks, no backend, no external libraries. Includes an authenticated sign-in flow, scrollable stories with timers, a infinite-style feed with likes/double-tap, comments and carousels, Reels with auto-progress navigation, DMs with simulated replies, search, notifications, followed profiles, and a fully theme (dark/light) switch. All state persists locally via localStorage.",
+      problem: "Building a production-look social UI usually pulls in heavy frameworks, external APIs and real backends — hard to demonstrate pure front-end craft in a self-contained demo.",
+      solution: "Engineered a single-page application with a data-driven vanilla JS architecture: seeded users & posts, delegated event handling, template rendering, IntersectionObserver-based reel autoplay, canvas-compressed image uploads and localStorage persistence for likes, comments, follows, DMs and profile edits.",
+      technologies: ["HTML5 Semantic Web", "Vanilla JavaScript (ES6+)", "CSS3 Custom Properties", "localStorage", "IntersectionObserver API", "Canvas API"],
+      features: [
+        "Authenticated sign-up / log-in flow with session persistence",
+        "Story rings with auto-advance progress bars, replies & likes",
+        "Feed posts with double-tap-to-like, carousels, comments & saves",
+        "Reels view with viewport-triggered autoplay & progress indicators",
+        "Real-time-feel DMs with simulated replies and unread badges",
+        "Create-post flow with canvas compression and offline uploads",
+        "Explore grid, search, notifications and editable profiles",
+        "Dark / light theme toggle with persistence"
+      ],
+      challenges: "Keeping the whole experience high-fidelity and responsive across mobile and desktop using zero dependencies while persisting rich state (images as compressed data URLs) within localStorage quotas.",
+      outcome: "A complete, polished Instagram clone that runs entirely in the browser — tested cross-device with 100% client-side persistence.",
+      github: "https://github.com/Anishcp2006",
+      live: "instagram-clone/index.html"
     }
   ],
 
@@ -820,6 +847,9 @@ function renderProjects() {
               <span>Explore Case Study</span>
               <i class="fa-solid fa-arrow-right"></i>
             </button>
+            ${proj.live ? `<a href="${proj.live}" class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer" aria-label="Open live demo of ${escapeHtml(proj.title)}">
+              <i class="fa-solid fa-play"></i> Live Demo
+            </a>` : ''}
             <a href="${proj.github}" target="_blank" rel="noopener noreferrer" class="btn btn-subtle btn-sm" aria-label="View ${escapeHtml(proj.title)} on GitHub">
               <i class="fa-brands fa-github"></i> Code
             </a>
@@ -900,7 +930,10 @@ function initProjectModal() {
       </div>
 
       <div style="display: flex; gap: 12px; margin-top: 10px; align-items: center; justify-content: flex-end;">
-        <a href="${proj.github}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+        ${proj.live ? `<a href="${proj.live}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+          <i class="fa-solid fa-play"></i> Open Live Demo
+        </a>` : ''}
+        <a href="${proj.github}" target="_blank" rel="noopener noreferrer" class="btn btn-subtle btn-sm">
           <i class="fa-brands fa-github"></i> View GitHub Repository
         </a>
       </div>
