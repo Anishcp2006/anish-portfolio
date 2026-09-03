@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="ig-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#07070a"/>
+      <stop offset="55%" stop-color="#0e0e14"/>
+      <stop offset="100%" stop-color="#14101f"/>
+    </linearGradient>
+    <linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#feda75"/>
+      <stop offset="30%" stop-color="#fa7e1e"/>
+      <stop offset="60%" stop-color="#d62976"/>
+      <stop offset="100%" stop-color="#962fbf"/>
+    </linearGradient>
+    <linearGradient id="ig-story" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#feda75"/>
+      <stop offset="50%" stop-color="#d62976"/>
+      <stop offset="100%" stop-color="#4f5bd5"/>
+    </linearGradient>
+    <linearGradient id="ig-img" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c2540"/>
+      <stop offset="50%" stop-color="#2d1b3d"/>
+      <stop offset="100%" stop-color="#0f1f33"/>
+    </linearGradient>
+    <filter id="ig-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#ig-bg)"/>
+
+  <!-- grid dots -->
+  <g opacity="0.12">
+    <circle cx="60" cy="60" r="2" fill="#fff"/><circle cx="180" cy="90" r="2" fill="#fff"/>
+    <circle cx="300" cy="50" r="2" fill="#fff"/><circle cx="740" cy="80" r="2" fill="#fff"/>
+    <circle cx="700" cy="430" r="2" fill="#fff"/><circle cx="80" cy="430" r="2" fill="#fff"/>
+    <circle cx="400" cy="460" r="2" fill="#fff"/><circle cx="520" cy="40" r="2" fill="#fff"/>
+  </g>
+
+  <!-- left: phone mock -->
+  <g>
+    <rect x="96" y="70" width="240" height="420" rx="26" fill="#0b0b10" stroke="#2a2a38" stroke-width="2"/>
+    <rect x="104" y="78" width="224" height="404" rx="20" fill="#101017"/>
+    <!-- phone header -->
+    <rect x="104" y="78" width="224" height="34" rx="20" fill="#14141c"/>
+    <circle cx="128" cy="95" r="10" fill="url(#ig-grad)" opacity="0.9"/>
+    <rect x="146" y="88" width="60" height="6" rx="3" fill="#3a3a4c"/>
+    <rect x="146" y="99" width="38" height="5" rx="2.5" fill="#26262f"/>
+    <rect x="292" y="88" width="22" height="14" rx="4" fill="#26262f"/>
+    <!-- stories strip -->
+    <g>
+      <rect x="112" y="120" width="208" height="56" rx="10" fill="#0d0d13" stroke="#22222e" stroke-width="1"/>
+      <circle cx="136" cy="148" r="15" fill="none" stroke="url(#ig-story)" stroke-width="3"/>
+      <circle cx="136" cy="148" r="10" fill="#2a2a3a"/>
+      <circle cx="176" cy="148" r="17" fill="none" stroke="url(#ig-story)" stroke-width="3"/>
+      <circle cx="176" cy="150" r="11" fill="#2a2a3a"/>
+      <circle cx="216" cy="148" r="15" fill="none" stroke="url(#ig-story)" stroke-width="3"/>
+      <circle cx="216" cy="148" r="10" fill="#2a2a3a"/>
+      <circle cx="256" cy="148" r="14" fill="none" stroke="url(#ig-story)" stroke-width="3"/>
+      <circle cx="256" cy="150" r="9" fill="#2a2a3a"/>
+      <circle cx="295" cy="148" r="13" fill="none" stroke="url(#ig-story)" stroke-width="3"/>
+      <circle cx="295" cy="149" r="8" fill="#2a2a3a"/>
+    </g>
+    <!-- feed image -->
+    <rect x="112" y="186" width="208" height="150" rx="10" fill="url(#ig-img)"/>
+    <path d="M150 300 L185 262 L215 292 L240 266 L268 296 L290 278 L306 300 Z" fill="#3d4b78" opacity="0.85"/>
+    <circle cx="250" cy="215" r="13" fill="#ffd76f" opacity="0.85"/>
+    <!-- feed actions -->
+    <g>
+      <path d="M124 352 c-2 -6 -2 -10 2 -12 4 -2 7 0 8 3 1 -3 4 -5 8 -3 4 2 4 6 2 12 l-10 8 z" fill="none" stroke="#ff3040" stroke-width="2.2" stroke-linejoin="round"/>
+      <circle cx="162" cy="352" r="8" fill="none" stroke="#e6e6f0" stroke-width="2.2"/>
+      <path d="M188 348 l10 4 -10 4 2 -2 c-4 3 -8 2 -10 0 z" fill="none" stroke="#e6e6f0" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M296 344 h14 v16 h-14 z" fill="none" stroke="#e6e6f0" stroke-width="2.2" stroke-linejoin="round"/>
+    </g>
+    <!-- caption lines -->
+    <rect x="120" y="378" width="90" height="6" rx="3" fill="#3a3a4c"/>
+    <rect x="120" y="392" width="150" height="6" rx="3" fill="#26262f"/>
+    <rect x="120" y="406" width="70" height="6" rx="3" fill="#26262f"/>
+    <rect x="120" y="428" width="200" height="24" rx="12" fill="#16161f"/>
+    <rect x="132" y="438" width="80" height="5" rx="2.5" fill="#2c2c3a"/>
+  </g>
+
+  <!-- right: desktop feed mock -->
+  <g>
+    <rect x="380" y="46" width="330" height="408" rx="18" fill="#0c0c12" stroke="#2a2a38" stroke-width="2"/>
+    <!-- sidebar -->
+    <rect x="380" y="46" width="70" height="408" rx="18" fill="#101018"/>
+    <rect x="380" y="46" width="70" height="408" fill="#101018" opacity="0"/>
+    <g stroke="#3d3d52" stroke-width="2.4" fill="none" stroke-linecap="round">
+      <path d="M396 84 h30 v12 a6 6 0 0 1 -6 6 h-18 a6 6 0 0 1 -6 -6 z"/>
+      <circle cx="411" cy="128" r="6"/><path d="M404 141 a9 9 0 0 1 14 0" />
+      <path d="M405 172 l11 -8 11 8 v18 h-22 z"/>
+      <path d="M406 224 a5 5 0 0 1 10 0 c0 5 -10 8 -10 8 s-10 -3 -10 -8 a5 5 0 0 1 10 0" transform="translate(5 0)"/>
+      <path d="M404 268 h14l-2 -6 h-10 z" />
+    </g>
+    <rect x="396" y="306" width="30" height="18" rx="4" stroke="#3d3d52" stroke-width="2" fill="none"/>
+    <!-- main column -->
+    <rect x="466" y="66" width="150" height="30" rx="8" fill="#16161f"/>
+    <rect x="474" y="78" width="70" height="6" rx="3" fill="#3a3a4c"/>
+    <!-- story strip -->
+    <rect x="466" y="106" width="150" height="40" rx="8" fill="#13131b" stroke="#22222e"/>
+    <circle cx="486" cy="126" r="12" fill="none" stroke="url(#ig-story)" stroke-width="2.5"/>
+    <circle cx="486" cy="126" r="8" fill="#2a2a3a"/>
+    <circle cx="514" cy="126" r="10" fill="none" stroke="url(#ig-story)" stroke-width="2.5"/>
+    <circle cx="514" cy="127" r="6.5" fill="#2a2a3a"/>
+    <circle cx="540" cy="126" r="10" fill="none" stroke="url(#ig-story)" stroke-width="2.5"/>
+    <circle cx="540" cy="126" r="6.5" fill="#2a2a3a"/>
+    <circle cx="566" cy="126" r="8.5" fill="none" stroke="url(#ig-story)" stroke-width="2.5"/>
+    <circle cx="566" cy="126" r="5.5" fill="#2a2a3a"/>
+    <!-- post -->
+    <rect x="466" y="156" width="150" height="116" rx="8" fill="url(#ig-img)"/>
+    <path d="M478 244 L498 222 L516 240 L534 220 L552 240 L570 226 L608 244 Z" fill="#3d4b78" opacity="0.85"/>
+    <circle cx="552" cy="182" r="10" fill="#ffd76f" opacity="0.9"/>
+    <g>
+      <path d="M472 284 c-1.5 -4 -1.5 -7 1.5 -8.5 3 -1.5 5 0 6 2 1 -2 3 -3.5 6 -2 3 1.5 3 4.5 1.5 8.5 l-7.5 6 z" fill="none" stroke="#ff3040" stroke-width="1.8" stroke-linejoin="round"/>
+      <circle cx="502" cy="282" r="6" fill="none" stroke="#e6e6f0" stroke-width="1.8"/>
+      <rect x="592" y="276" width="11" height="12" rx="2" fill="none" stroke="#e6e6f0" stroke-width="1.8"/>
+    </g>
+    <rect x="472" y="302" width="60" height="5" rx="2.5" fill="#3a3a4c"/>
+    <rect x="472" y="314" width="112" height="5" rx="2.5" fill="#26262f"/>
+    <rect x="472" y="326" width="80" height="5" rx="2.5" fill="#26262f"/>
+    <rect x="472" y="344" width="138" height="21" rx="10.5" fill="#16161f"/>
+    <rect x="482" y="351" width="56" height="5" rx="2.5" fill="#2c2c3a"/>
+    <!-- right panel -->
+    <rect x="630" y="66" width="66" height="30" rx="8" fill="#16161f"/>
+    <rect x="630" y="106" width="66" height="26" rx="6" fill="#13131b"/>
+    <rect x="630" y="140" width="66" height="26" rx="6" fill="#13131b"/>
+    <rect x="630" y="174" width="66" height="26" rx="6" fill="#13131b"/>
+    <rect x="630" y="208" width="66" height="26" rx="6" fill="#13131b"/>
+  </g>
+
+  <!-- gradient logo -->
+  <g filter="url(#ig-glow)">
+    <rect x="360" y="12" width="80" height="28" rx="14" fill="url(#ig-grad)"/>
+    <rect x="368" y="18" width="64" height="16" rx="8" fill="#0b0b10" opacity="0.85"/>
+    <text x="400" y="30.5" text-anchor="middle" font-family="Trebuchet MS, sans-serif" font-size="10.5" font-weight="bold" fill="#fff">IG CLONE</text>
+  </g>
+
+  <!-- bottom tag -->
+  <text x="400" y="480" text-anchor="middle" font-family="Consolas, monospace" font-size="15" fill="#8a8aa8">feed · stories · reels · dms · explore — 100% client-side</text>
+</svg>
